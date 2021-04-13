@@ -1,0 +1,55 @@
+body{
+    background-image: url(../img/bk.jpg);
+    background-size: cover;
+    color: white;
+}
+
+main{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+}
+
+#ppl-container{
+    position: relative;
+    top: 100px;
+    background-color: rgb(0 0 0 / 45%);
+    width: fit-content;
+    height: fit-content
+}
+
+#table-container{
+    position: relative;
+    top: 105px;
+    background-color: rgb(0 0 0 / 45%);
+    width: fit-content;
+    height: fit-content
+}
+
+fieldset{
+    border: 3px solid white;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+legend{
+    text-align: center;
+}
+
+#subBut{
+
+}
+
+#my-table,tr,th,td{
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+tr,th,td{
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+}
+th{
+    font-weight: bold;
+}
