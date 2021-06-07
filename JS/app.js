@@ -1,16 +1,19 @@
 'use strict';
 
-let total =0;
+let total = 0;
+let allEmployee = [];
+let nueTable = document.getElementById('my-table');
+const hrData = document.getElementById('my-form');
 
-function Employee(name, email, department){
+function Employee(name, email, department) {
   this.name = name;
   this.email = email;
   this.department = department;
+  this.randomSalary();
   allEmployee.push(this);
 }
-let allEmployee = [];
 
-function tableHeader(){
+function tableHeader() {
   let header = document.createElement('tr');
   header.setAttribute('id', 'table-header');
   nueTable.appendChild(header);
@@ -32,23 +35,22 @@ function tableHeader(){
   header.appendChild(tableSalary);
 }
 
-function displayTotal(){
+function displayTotal() {
   let tableTotal = document.createElement('tr');
   tableTotal.setAttribute('id', 'table-total');
   nueTable.appendChild(tableTotal);
   let elTotal = document.createElement('th');
-  elTotal.setAttribute('colspan','4');
+  elTotal.setAttribute('colspan', '4');
   tableTotal.appendChild(elTotal);
   elTotal.textContent = total;
 }
 
-Employee.prototype.randomSalary = function(){
-  return this.salary = Math.round(Math.random()*(500-100)+100);
+Employee.prototype.randomSalary = function () {
+  return this.salary = Math.round(Math.random() * (500 - 100) + 100);
 };
 
-let nueTable= document.getElementById('my-table');
 
-Employee.prototype.displayTable = function(){
+Employee.prototype.displayTable = function () {
   let row2 = document.createElement('tr');
   nueTable.appendChild(row2);
 
@@ -67,28 +69,27 @@ Employee.prototype.displayTable = function(){
   let row2D4 = document.createElement('td');
   row2D4.textContent = this.salary;
   row2.appendChild(row2D4);
-  total+=this.salary;
-  this.total= total;
+
+  total += this.salary;
+  this.total = total;
 };
 
-function toLocalStorage(){
+function toLocalStorage() {
   localStorage.setItem('allEmployee', JSON.stringify(allEmployee));
 }
 
-const hrData = document.getElementById('my-form');
 
-hrData.addEventListener('submit', (event)=>{
+hrData.addEventListener('submit', (event) => {
   event.preventDefault();
   // console.log(event.target.name.value, event.target.email.value, event.target.department.value);
   let nueEmployee = new Employee(event.target.name.value, event.target.email.value, event.target.department.value);
-  nueEmployee.randomSalary();
-  if(!document.getElementById('table-header')){
+  if (!document.getElementById('table-header')) {
     tableHeader();
   }
   nueEmployee.displayTable();
-  if(!document.getElementById('table-total')){
+  if (!document.getElementById('table-total')) {
     displayTotal();
-  }else{
+  } else {
     let deltotal = document.getElementById('table-total');
     deltotal.remove();
     displayTotal();
@@ -98,7 +99,7 @@ hrData.addEventListener('submit', (event)=>{
   hrData.reset('');
 });
 
-function displayOld(){
+function displayOld() {
   let header = document.createElement('tr');
   header.setAttribute('id', 'table-header');
   nueTable.appendChild(header);
@@ -118,7 +119,7 @@ function displayOld(){
   let tableSalary = document.createElement('th');
   tableSalary.textContent = 'Salary';
   header.appendChild(tableSalary);
-  for(let i=0; i<allEmployee.length; i++){
+  for (let i = 0; i < allEmployee.length; i++) {
     let row2 = document.createElement('tr');
     nueTable.appendChild(row2);
 
@@ -137,19 +138,26 @@ function displayOld(){
     let row2D4 = document.createElement('td');
     row2D4.textContent = allEmployee[i].salary;
     row2.appendChild(row2D4);
-    if(i>0){
+    if (i === allEmployee.length - 1) {
+      for (let j = 0; j < allEmployee.length; j++) {
+        total += allEmployee[j].salary;
+      }
       let tableTotal = document.createElement('tr');
       tableTotal.setAttribute('id', 'table-total');
       nueTable.appendChild(tableTotal);
+      let elTotalHeader = document.createElement('th');
+      tableTotal.appendChild(elTotalHeader);
+      elTotalHeader.textContent = 'Total';
       let elTotal = document.createElement('th');
+      elTotal.setAttribute('colspan', '4');
       tableTotal.appendChild(elTotal);
-      elTotal.textContent = allEmployee[i].total;
+      elTotal.textContent = total;
     }
   }
 }
 
-if(localStorage.getItem('allEmployee')){
+if (localStorage.getItem('allEmployee')) {
   allEmployee = JSON.parse(localStorage.getItem('allEmployee'));
-  console.log(allEmployee);
+  // console.log(allEmployee);
   displayOld();
 }
