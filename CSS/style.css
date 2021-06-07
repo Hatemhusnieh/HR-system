@@ -18,6 +18,12 @@ main{
     height: fit-content
 }
 
+#my-form{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center
+}
+
 #table-container{
     position: relative;
     top: 105px;
@@ -34,10 +40,11 @@ fieldset{
 
 legend{
     text-align: center;
+    padding: 5px;
 }
 
 #subBut{
-
+    width: fit-content;
 }
 
 #my-table,tr,th,td{
