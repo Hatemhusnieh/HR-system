@@ -39,6 +39,9 @@ function displayTotal() {
   let tableTotal = document.createElement('tr');
   tableTotal.setAttribute('id', 'table-total');
   nueTable.appendChild(tableTotal);
+  let elTotalHeader = document.createElement('th');
+  tableTotal.appendChild(elTotalHeader);
+  elTotalHeader.textContent = 'Total';
   let elTotal = document.createElement('th');
   elTotal.setAttribute('colspan', '4');
   tableTotal.appendChild(elTotal);
@@ -71,7 +74,6 @@ Employee.prototype.displayTable = function () {
   row2.appendChild(row2D4);
 
   total += this.salary;
-  this.total = total;
 };
 
 function toLocalStorage() {
@@ -90,8 +92,8 @@ hrData.addEventListener('submit', (event) => {
   if (!document.getElementById('table-total')) {
     displayTotal();
   } else {
-    let deltotal = document.getElementById('table-total');
-    deltotal.remove();
+    let delTotal = document.getElementById('table-total');
+    delTotal.remove();
     displayTotal();
   }
   // console.log(allEmployee);
@@ -138,22 +140,19 @@ function displayOld() {
     let row2D4 = document.createElement('td');
     row2D4.textContent = allEmployee[i].salary;
     row2.appendChild(row2D4);
-    if (i === allEmployee.length - 1) {
-      for (let j = 0; j < allEmployee.length; j++) {
-        total += allEmployee[j].salary;
-      }
-      let tableTotal = document.createElement('tr');
-      tableTotal.setAttribute('id', 'table-total');
-      nueTable.appendChild(tableTotal);
-      let elTotalHeader = document.createElement('th');
-      tableTotal.appendChild(elTotalHeader);
-      elTotalHeader.textContent = 'Total';
-      let elTotal = document.createElement('th');
-      elTotal.setAttribute('colspan', '4');
-      tableTotal.appendChild(elTotal);
-      elTotal.textContent = total;
-    }
+    total += allEmployee[i].salary;
   }
+
+  let tableTotal = document.createElement('tr');
+  tableTotal.setAttribute('id', 'table-total');
+  nueTable.appendChild(tableTotal);
+  let elTotalHeader = document.createElement('th');
+  tableTotal.appendChild(elTotalHeader);
+  elTotalHeader.textContent = 'Total';
+  let elTotal = document.createElement('th');
+  elTotal.setAttribute('colspan', '4');
+  tableTotal.appendChild(elTotal);
+  elTotal.textContent = total;
 }
 
 if (localStorage.getItem('allEmployee')) {
